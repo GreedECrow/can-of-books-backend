@@ -4,6 +4,7 @@ const {Schema} = mongoose;
 
 const bookSchema = new Schema({
     title: String,
+    img_url: String,
     description: String,
     status: String,
 
@@ -11,4 +12,4 @@ const bookSchema = new Schema({
 
 const Book = mongoose.model("Book", bookSchema);
 
-module.exports=Book;
+module.exports = Book;

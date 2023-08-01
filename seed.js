@@ -4,6 +4,7 @@ mongoose.connect(process.env.DATABASE_URL);
 const Book = require("./models/book");
 
 async function seed(){
+    
     await Book.create({
         title: "The Last of Us",
         description: "Was Alright, they all died at the end.",
