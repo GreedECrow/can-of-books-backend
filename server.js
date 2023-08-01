@@ -3,16 +3,20 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const mongoose = require("mongoose");
+const bp = require("body-parser");
+require("dotenv").config();
+
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 3001;
 
-app.get('/test', (request, response) => {
 
-  response.send('test request received')
-
+app.get("/", (request, response) => {
+  response.status(200).json("WootWoot!")
 })
+
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
