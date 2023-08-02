@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cors());
+app.use(bp.json());
+
+mongoose.connect(process.env.DATABASE_URL).then(() => console.log("DB Connected"));
 
 app.get("/", (request, response) => {
   response.status(200).json("WootWoot!")
@@ -24,8 +27,8 @@ app.get("/", (request, response) => {
 
 app.get("/books", async(request, response) => {
   try{
-      const allBooks = await Book.find(request.query)
-      response.status(200).json(allBooks)
+      const Book = await Book.find()
+      response.status(200).json(Book)
   }catch{
       console.log(err)
       response.status(404).json(err)
@@ -42,6 +45,26 @@ app.post("/book", async(request, response) => {
       response.status(500).json(error)
     }
   })
+
+  //Crud Update
+
+    app.put("/book/:id", async (request, respond) =>{
+      console.log(request.params.id);
+      try{
+        await Book.findByIdAndUpdate(request.params.id, request.body);
+        response.status(204).send()
+      }catch (err){
+        response.send (err);
+      }
+    })
+
+    //  GET Request  /book/123
+    //  app.get("/book/:id", async (request, reposnse) => {
+    //    console.log(request);
+    //    const theBook = await Book.find({_id: request.params.id});
+    //    response.json(theBook);
+    // })
+
 
   // Crud Delete
 
